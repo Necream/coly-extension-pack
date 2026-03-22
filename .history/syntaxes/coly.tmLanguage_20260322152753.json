@@ -7,7 +7,6 @@
 		{ "include": "#define-statements" },
 		{ "include": "#use-jump-statements" },
 		{ "include": "#import-lib-statements" },
-		{ "include": "#print-statements" },
 		{ "include": "#python-code-blocks" },
 		{ "include": "#code-block-marker" },
 		{ "include": "#keywords" },
@@ -84,10 +83,26 @@
 				{
 					"match": "\\b(import)\\b\\s+(lib)\\s+(.*)$",
 					"captures": {
-						"1": { "name": "keyword.control.coly" },
-						"2": { "name": "keyword.control.coly" },
-						"3": { "name": "string.quoted.double.python" }
+						"1": { "name": "keyword.control.coly" }, // import 关键字高亮
+						"2": { "name": "keyword.control.coly" }, // lib 关键字高亮（和 import 同色）
+						"3": { "name": "string.quoted.double.python" } // 后面内容绿色字符串
 					}
+				}
+			]
+		},
+		"python-code-blocks": {
+			"patterns": [
+				{
+					"begin": "^define\\s+code\\s+named\\s+\\S+\\s+with\\s+Python\\s*$",
+					"end": "^(?!\\|)",
+					"patterns": [
+						{
+							"match": "^\\|\\s*(.*)$",
+							"captures": {
+								"1": { "patterns": [{ "include": "source.python" }, { "include": "#variables" }] }
+							}
+						}
+					]
 				}
 			]
 		},
@@ -108,22 +123,6 @@
 				{
 					"name": "variable.other.coly",
 					"match": "\\$(\\S+)(?=\\s|\\r|\\n|$)"
-				}
-			]
-		},
-		"print-statements": {
-			"patterns": [
-				{
-					"match": "\\b(print)\\b\\s+(.*)$",
-					"captures": {
-						"1": { "name": "keyword.control.coly" },
-						"2": {
-							"name": "string.quoted.double.python",
-							"patterns": [
-								{ "include": "#variables" }
-							]
-						}
-					}
 				}
 			]
 		},

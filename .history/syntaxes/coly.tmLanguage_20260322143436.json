@@ -1,0 +1,53 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Coly",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#variables"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#code-block-marker"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.coly",
+				"match": "\\b(print|printwithoutanewline|exit|with|define|var|code|named|privatevar|privatecode|Input|InputLine|NoReg|OnlyCompile|commitvaroperation|use|jump|if|ifn)\\b"
+			}]
+		},
+		"variables": {
+			"patterns": [{
+				"name": "variable.other.coly",
+				"match": "\\$(\\S+)(?=\\s|\\r|\\n|$)"
+			}]
+		},
+		"comments": {
+			"patterns": [{
+				"name": "comment.line.coly",
+				"match": "^#.*$"
+			}]
+		},
+		"coly-code-block-lines": {
+			"patterns": [{
+				"name": "meta.code-block.coly",
+				"begin": "(?<=\\n)\\|",
+				"end": "^(?!\\|)",
+				"patterns": [
+					{ "include": "#code-block-marker" },
+					{ "include": "#variables" },
+					{ "include": "#keywords" }
+				],
+				"applyEndPatternLast": true,
+				"contentName": "meta.embedded.coly"
+			}]
+		}
+		},
+	"scopeName": "source.cly"
+}

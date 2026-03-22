@@ -1,0 +1,140 @@
+	{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Coly",
+	"scopeName": "source.cly",
+	"patterns": [
+		{ "include": "#comments" },
+		{ "include": "#define-statements" },
+		{ "include": "#use-jump-statements" },
+		{ "include": "#dynamic-code-blocks" },
+		{ "include": "#code-block-marker" },
+		{ "include": "#keywords" },
+		{ "include": "#variables" },
+		{ "include": "#special-vars" }
+	],
+	"repository": {
+		"comments": {
+		"patterns": [
+			{
+			"name": "comment.line.number-sign.coly",
+			"match": "^#.*$"
+			}
+		]
+		},
+		"code-block-marker": {
+		"patterns": [
+			{
+			"name": "punctuation.definition.coly",
+			"match": "^\\|"
+			}
+		]
+		},
+		"define-statements": {
+		"patterns": [
+			{
+			"match": "\\b(define)\\b\\s+(var|privatevar|code|privatecode)\\s+\\b(named)\\b\\s+(\\S+)(?:\\s+\\b(with)\\b\\s+(.*))?$",
+			"captures": {
+				"1": { "name": "keyword.control.define.coly" },
+				"2": { "name": "keyword.type.coly" },
+				"3": { "name": "keyword.control.coly" },
+				"4": { "name": "variable.other.coly" },
+				"5": { "name": "keyword.control.coly" },
+				"6": {
+				"patterns": [
+					{ "include": "#keywords" },
+					{ "include": "#variables" }
+				]
+				}
+			}
+			}
+		]
+		},
+		"use-jump-statements": {
+		"patterns": [
+			{
+			"match": "\\b(use|jump)\\b\\s+(\\S+)",
+			"captures": {
+				"1": { "name": "keyword.control.coly" },
+				"2": { "name": "variable.other.coly" }
+			}
+			},
+			{
+			"match": "\\b(use|jump)\\b\\s+to\\s+(\\S+)",
+			"captures": {
+				"1": { "name": "keyword.control.coly" },
+				"2": { "name": "keyword.control.coly" },
+				"3": { "name": "variable.other.coly" }
+			}
+			}
+		]
+		},
+		"dynamic-code-blocks": {
+		"patterns": [
+			{
+			"begin": "^\\bdefine\\b\\s+\\bcode\\b\\s+\\bnamed\\b\\s+\\S+\\s+\\bwith\\b\\s+(Python)\\s*$",
+			"end": "^(?!\\|).*$",
+			"patterns": [
+				{
+				"match": "^\\|\\s*(.*)$",
+				"captures": {
+					"1": { "patterns": [{ "include": "source.python" }] }
+				}
+				}
+			]
+			},
+			{
+			"begin": "^\\bdefine\\b\\s+\\bcode\\b\\s+\\bnamed\\b\\s+\\S+\\s+\\bwith\\b\\s+(JavaScript)\\s*$",
+			"end": "^(?!\\|).*$",
+			"patterns": [
+				{
+				"match": "^\\|\\s*(.*)$",
+				"captures": {
+					"1": { "patterns": [{ "include": "source.js" }] }
+				}
+				}
+			]
+			},
+			{
+			"begin": "^\\bdefine\\b\\s+\\bcode\\b\\s+\\bnamed\\b\\s+\\S+\\s+\\bwith\\b\\s+(Java)\\s*$",
+			"end": "^(?!\\|).*$",
+			"patterns": [
+				{
+				"match": "^\\|\\s*(.*)$",
+				"captures": {
+					"1": { "patterns": [{ "include": "source.java" }] }
+				}
+				}
+			]
+			}
+		]
+		},
+		"keywords": {
+		"patterns": [
+			{
+			"name": "keyword.control.coly",
+			"match": "\\b(print|printwithoutanewline|exit|NoReg|OnlyCompile|commitvaroperation|if|ifn|named|with|to)\\b"
+			},
+			{
+			"name": "constant.language.coly",
+			"match": "\\b(false|true)\\b"
+			}
+		]
+		},
+		"variables": {
+		"patterns": [
+			{
+			"name": "variable.other.coly",
+			"match": "\\$(\\S+)(?=\\s|\\r|\\n|$)"
+			}
+		]
+		},
+		"special-vars": {
+		"patterns": [
+			{
+			"name": "support.variable.coly",
+			"match": "\\b(Input|InputLine)\\b"
+			}
+		]
+		}
+	}
+	}

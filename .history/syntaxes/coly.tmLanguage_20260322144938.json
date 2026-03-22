@@ -1,0 +1,66 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Coly",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#variables"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#define-statements"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.coly",
+				"match": "\\b(print|printwithoutanewline|exit|with|Input|InputLine|NoReg|OnlyCompile|commitvaroperation|use|jump|if|ifn)\\b"
+			},
+			{
+				"name": "constant.language.coly",
+				"match": "\\b(false|true)\\b"
+			}]
+		},
+		"variables": {
+			"patterns": [{
+				"name": "variable.other.coly",
+				"match": "\\$(\\S+)(?=\\s|\\r|\\n|$)"
+			}]
+		},
+		"comments": {
+			"patterns": [{
+				"name": "comment.line.number-sign.coly",
+				"match": "#.*$"
+			},
+			{
+				"name": "comment.line.number-sign.coly",
+				"match": "|.*$"
+			}]
+		},
+		"define-statements": {
+			"patterns": [{
+				"match": "^define\\s+(var|privatevar|code|privatecode)\\s+named\\s+(\\S+)\\s+with\\s+(.*)$",
+				"captures": {
+				"0": { "name": "keyword.control.coly" },
+				"1": { "name": "keyword.type.coly" },
+				"2": { "name": "variable.other.coly" },
+				"3": { "name": "keyword.type.coly" },
+				"4": { "name": "keyword.control.coly" },
+				"5": {
+					"patterns": [
+					{ "include": "#booleans" },
+					{ "include": "#variables" },
+					{ "name": "string.quoted.other.coly" }
+					]
+				}
+				}
+			}]
+		}
+	},
+	"scopeName": "source.cly"
+}

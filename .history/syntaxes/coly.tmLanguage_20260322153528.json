@@ -4,6 +4,7 @@
 	"scopeName": "source.cly",
 	"patterns": [
 		{ "include": "#comments" },
+		{ "include": "#pipe-line-override"}
 		{ "include": "#define-statements" },
 		{ "include": "#use-jump-statements" },
 		{ "include": "#import-lib-statements" },
@@ -29,6 +30,14 @@
 						"1": { "name": "punctuation.definition.coly" },
 						"2": { "name": "comment.line.number-sign.coly" }
 					}
+				}
+			]
+		},
+		"pipe-line-override": {
+			"patterns": [
+				{
+					"match": "^\\|.*$",
+					"name": "text.plain.coly"
 				}
 			]
 		},

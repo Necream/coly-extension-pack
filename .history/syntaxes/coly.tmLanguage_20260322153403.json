@@ -3,6 +3,7 @@
 	"name": "Coly",
 	"scopeName": "source.cly",
 	"patterns": [
+		{ "include": "#pipe-line-override"}
 		{ "include": "#comments" },
 		{ "include": "#define-statements" },
 		{ "include": "#use-jump-statements" },
@@ -15,6 +16,14 @@
 		{ "include": "#special-vars" }
 	],
 	"repository": {
+		"pipe-line-override": {
+			"patterns": [
+				{
+					"match": "^\\|.*$",
+					"name": "text.plain.coly"
+				}
+			]
+		},
 		"comments": {
 			"patterns": [
 				{

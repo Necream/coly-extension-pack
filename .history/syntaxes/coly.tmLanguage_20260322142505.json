@@ -1,0 +1,91 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Coly",
+	"patterns": [
+		{ "include": "#comments" },          // 1. 行首#注释（Coly唯一注释方式）
+		{ "include": "#code-block-marker" }, // 2. 代码块行首|符号（Coly代码块分隔符）
+		{ "include": "#coly-code-blocks" },  // 3. Coly原生代码块（define code ...）
+		{ "include": "#keywords" },          // 4. Coly核心关键字
+		{ "include": "#variables" }          // 5. $变量名（Coly变量调用方式）
+	],
+	"repository": {
+		// 1. 严格匹配Coly注释规则：仅行首#、整行注释、无前置空格
+		"comments": {
+			"patterns": [{
+				"name": "comment.line.coly",
+				"match": "^#.*$" // 仅匹配行首#开头的整行，无任何前置空格
+			}]
+		},
+
+		// 2. 匹配Coly代码块的|符号：必须行首、无前置空格
+		"code-block-marker": {
+			"patterns": [{
+				"name": "punctuation.definition.coly",
+				"match": "^\\|" // 仅匹配行首的|，对应Coly代码块每行前缀
+			}]
+		},
+
+		// 3. 核心：Coly代码块（define code named xxx with 语言）+ 嵌入对应语言高亮
+		"coly-code-blocks": {
+			"patterns": [
+				// 3.1 C++代码块（define code xxx with C++）
+				{
+					"begin": "^define\\s+code\\s+\\S+\\s+with\\s+C\\+\\+$",
+					"end": "^#.*$|^$", // 结束：遇到注释/空行（Coly代码块无显式结束符）
+					"beginCaptures": {
+						"0": { "name": "keyword.control.coly" }
+					},
+					"patterns": [
+						{ "include": "#code-block-marker" }, // 先匹配|符号
+						{ "include": "source.cpp" }          // 嵌入C++原生高亮
+					],
+					"applyEndPatternLast": true
+				},
+				// 3.2 Python代码块（define code xxx with Python）
+				{
+					"begin": "^define\\s+code\\s+\\S+\\s+with\\s+Python$",
+					"end": "^#.*$|^$",
+					"beginCaptures": {
+						"0": { "name": "keyword.control.coly" }
+					},
+					"patterns": [
+						{ "include": "#code-block-marker" },
+						{ "include": "source.python" }
+					],
+					"applyEndPatternLast": true
+				},
+				// 3.3 私有代码块（privatecode）
+				{
+					"begin": "^define\\s+privatecode\\s+\\S+\\s+with\\s+\\w+$",
+					"end": "^#.*$|^$",
+					"beginCaptures": {
+						"0": { "name": "keyword.control.coly" }
+					},
+					"patterns": [
+						{ "include": "#code-block-marker" },
+						{ "include": "#keywords" },
+						{ "include": "#variables" }
+					],
+					"applyEndPatternLast": true
+				}
+			]
+		},
+
+		// 4. 完整匹配Coly所有关键字（来自你的文档）
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.coly",
+				"match": "\\b(print|printwithoutanewline|exit|with|define|var|code|named|privatevar|privatecode|Input|InputLine|NoReg|OnlyCompile|commitvaroperation|use|jump|if|ifn|import)\\b"
+			}]
+		},
+
+		// 5. 严格匹配Coly变量规则：$开头、无空格、以空格/\r/\n/行尾结束
+		"variables": {
+			"patterns": [{
+				"name": "variable.other.coly",
+				"match": "\\$(\\S+)(?=\\s|\\r|\\n|$)" // 完全匹配你的变量调用规则
+			}]
+		}
+	},
+	"scopeName": "source.cly"
+}

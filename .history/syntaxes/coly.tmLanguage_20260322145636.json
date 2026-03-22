@@ -1,0 +1,92 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Coly",
+	"patterns": [
+		{ "include": "#comments" },          // 1. 注释（最高优先级，避免被覆盖）
+		{ "include": "#code-block-marker" }, // 2. 新增：|符号高亮
+		{ "include": "#define-statements" }, // 3. define语句（兼容有/无with）
+		{ "include": "#keywords" },          // 4. 普通关键字+布尔值
+		{ "include": "#variables" },         // 5. $变量
+		{ "include": "#special-vars" }       // 6. 新增：Input/InputLine单独高亮
+	],
+	"repository": {
+		// 1. 注释：匹配#和|#，修复原规则仅匹配#的问题
+		"comments": {
+			"patterns": [{
+				"name": "comment.line.number-sign.coly",
+				"match": "^(\\|)?#.*$" // 兼容|#注释和纯#注释
+			}]
+		},
+
+		// 2. 新增：|符号高亮（代码块行首|）
+		"code-block-marker": {
+			"patterns": [{
+				"name": "punctuation.definition.coly",
+				"match": "^\\|"
+			}]
+		},
+
+		// 3. 核心修复：define语句（兼容有/无with，修正捕获组错误）
+		"define-statements": {
+			"patterns": [
+				// 3.1 匹配带with的完整define语句
+				{
+					"match": "^define\\s+(var|privatevar|code|privatecode)\\s+named\\s+(\\S+)\\s+with\\s+(.*)$",
+					"captures": {
+						"1": { "name": "keyword.control.coly" },    // define（整句关键字）
+						"2": { "name": "keyword.type.coly" },       // var/privatevar等（类型）
+						"3": { "name": "variable.other.coly" },     // 变量名（如AppName）
+						"4": { "name": "keyword.control.coly" },    // with（关键字）
+						"5": {                                     // with后的值
+							"patterns": [
+								{ "include": "#keywords" },   // 嵌套匹配true/false
+								{ "include": "#variables" },  // 嵌套匹配$变量
+								{ "name": "string.quoted.other.coly" }
+							]
+						}
+					}
+				},
+				// 3.2 匹配无with的简化define语句（如define var named Input）
+				{
+					"match": "^define\\s+(var|privatevar|code|privatecode)\\s+named\\s+(\\S+)\\s*$",
+					"captures": {
+						"1": { "name": "keyword.control.coly" },    // define
+						"2": { "name": "keyword.type.coly" },       // var/privatevar等
+						"3": { "name": "variable.other.coly" }      // 变量名（如Input/InputLine）
+					}
+				}
+			]
+		},
+
+		// 4. 关键字+布尔值（整合原keywords中的true/false）
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.coly",
+					"match": "\\b(print|printwithoutanewline|exit|NoReg|OnlyCompile|commitvaroperation|use|jump|if|ifn)\\b"
+				},
+				{
+					"name": "constant.language.coly",
+					"match": "\\b(false|true)\\b"
+				}
+			]
+		},
+
+		// 5. $变量（原规则不变）
+		"variables": {
+			"patterns": [{
+				"name": "variable.other.coly",
+				"match": "\\$(\\S+)(?=\\s|\\r|\\n|$)"
+			}]
+		},
+
+		// 6. 新增：Input/InputLine单独高亮（特殊功能变量）
+		"special-vars": {
+			"patterns": [{
+				"name": "support.variable.coly", // 特殊scope，默认橙色/红色
+				"match": "\\b(Input|InputLine)\\b"
+			}]
+		}
+	},
+	"scopeName": "source.cly"
+}

@@ -4,6 +4,7 @@
 	"scopeName": "source.cly",
 	"patterns": [
 		{ "include": "#comments" },
+		{ "include": "#pipe-line-override"}
 		{ "include": "#define-statements" },
 		{ "include": "#use-jump-statements" },
 		{ "include": "#import-lib-statements" },
@@ -15,6 +16,14 @@
 		{ "include": "#special-vars" }
 	],
 	"repository": {
+		"pipe-line-override": {
+			"patterns": [
+				{
+					"match": "^\\|.*$",
+					"name": "text.plain.coly"
+				}
+			]
+		},
 		"comments": {
 			"patterns": [
 				{

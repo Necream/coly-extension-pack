@@ -15,6 +15,14 @@
 		{ "include": "#special-vars" }
 	],
 	"repository": {
+		"pipe-line-override": {
+			"patterns": [
+				{
+					"match": "^\\|.*$", // 匹配所有 | 开头的行（整行）
+					"name": "text.plain.coly" // 强制设为纯文本（无任何语法高亮）
+				}
+			]
+		},
 		"comments": {
 			"patterns": [
 				{

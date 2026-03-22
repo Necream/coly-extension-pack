@@ -117,12 +117,7 @@
 					"match": "\\b(print)\\b\\s+(.*)$",
 					"captures": {
 						"1": { "name": "keyword.control.coly" },
-						"2": {
-							"name": "string.quoted.double.python",
-							"patterns": [
-								{ "include": "#variables" }
-							]
-						}
+						"2": { "name": "string.quoted.double.python" }
 					}
 				}
 			]

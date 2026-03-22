@@ -1,0 +1,45 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Coly",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#variables"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#code-block-marker"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.coly",
+				"match": "\\b(print|printwithoutanewline|exit|with|define|var|code|named|privatevar|privatecode|Input|InputLine|NoReg|OnlyCompile|commitvaroperation|use|jump|if|ifn)\\b"
+			}]
+		},
+		"variables": {
+			"patterns": [{
+				"name": "variable.other.coly",
+				"match": "\\$(\\S+)(?=\\s|\\r|\\n|$)"
+			}]
+		},
+		"comments": {
+			"patterns": [{
+				"name": "comment.line.coly",
+				"match": "^#.*$"
+			}]
+		},
+		"code-block-marker": {
+			"patterns": [{
+				"name": "punctuation.definition.coly",
+				"match": "^\\|"
+			}]
+		},
+	},
+	"scopeName": "source.cly"
+}

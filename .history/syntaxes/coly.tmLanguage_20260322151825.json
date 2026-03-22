@@ -6,9 +6,7 @@
 		{ "include": "#comments" },
 		{ "include": "#define-statements" },
 		{ "include": "#use-jump-statements" },
-		{ "include": "#import-lib-statements" },
-		{ "include": "#print-statements" },
-		{ "include": "#python-code-blocks" },
+		{ "include": "#multi-lang-code-blocks" },
 		{ "include": "#code-block-marker" },
 		{ "include": "#keywords" },
 		{ "include": "#variables" },
@@ -43,7 +41,7 @@
 		"define-statements": {
 			"patterns": [
 				{
-					"match": "\\b(define)\\b\\s+(var|privatevar|code|privatecode)\\s+\\b(named)\\b\\s+(\\S+)(?:\\s+\\b(with)\\b\\s+(.*))?$",
+					"match": "\\b(define)\\b\\s+(var|privatevar)\\s+\\b(named)\\b\\s+(\\S+)(?:\\s+\\b(with)\\b\\s+(.*))?$",
 					"captures": {
 						"1": { "name": "keyword.control.define.coly" },
 						"2": { "name": "keyword.type.coly" },
@@ -79,14 +77,38 @@
 				}
 			]
 		},
-		"import-lib-statements": {
+		"multi-lang-code-blocks": {
 			"patterns": [
 				{
-					"match": "\\b(import)\\b\\s+(lib)\\s+(.*)$",
+					"match": "(?<=define\\s+code\\s+named\\s+\\S+\\s+with\\s+Python\\s*\\n)\\|\\s*(.*)",
 					"captures": {
-						"1": { "name": "keyword.control.coly" },
-						"2": { "name": "keyword.control.coly" },
-						"3": { "name": "string.quoted.double.python" }
+						"1": {
+							"patterns": [{ "include": "source.python" }, { "include": "#variables" }]
+						}
+					}
+				},
+				{
+					"match": "(?<=define\\s+code\\s+named\\s+\\S+\\s+with\\s+JavaScript\\s*\\n)\\|\\s*(.*)",
+					"captures": {
+						"1": {
+							"patterns": [{ "include": "source.js" }, { "include": "#variables" }]
+						}
+					}
+				},
+				{
+					"match": "(?<=define\\s+code\\s+named\\s+\\S+\\s+with\\s+Java\\s*\\n)\\|\\s*(.*)",
+					"captures": {
+						"1": {
+							"patterns": [{ "include": "source.java" }, { "include": "#variables" }]
+						}
+					}
+				},
+				{
+					"match": "(?<=define\\s+code\\s+named\\s+\\S+\\s+with\\s+Go\\s*\\n)\\|\\s*(.*)",
+					"captures": {
+						"1": {
+							"patterns": [{ "include": "source.go" }, { "include": "#variables" }]
+						}
 					}
 				}
 			]
@@ -95,7 +117,7 @@
 			"patterns": [
 				{
 					"name": "keyword.control.coly",
-					"match": "\\b(print|printwithoutanewline|exit|NoReg|OnlyCompile|commitvaroperation|if|ifn|named|with|to|import|lib)\\b"
+					"match": "\\b(print|printwithoutanewline|exit|NoReg|OnlyCompile|commitvaroperation|if|ifn|named|with|to)\\b"
 				},
 				{
 					"name": "constant.language.coly",
@@ -108,22 +130,6 @@
 				{
 					"name": "variable.other.coly",
 					"match": "\\$(\\S+)(?=\\s|\\r|\\n|$)"
-				}
-			]
-		},
-		"print-statements": {
-			"patterns": [
-				{
-					"match": "\\b(print)\\b\\s+(.*)$",
-					"captures": {
-						"1": { "name": "keyword.control.coly" },
-						"2": {
-							"name": "string.quoted.double.python",
-							"patterns": [
-								{ "include": "#variables" }
-							]
-						}
-					}
 				}
 			]
 		},

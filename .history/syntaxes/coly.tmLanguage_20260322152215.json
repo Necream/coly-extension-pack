@@ -4,11 +4,9 @@
 	"scopeName": "source.cly",
 	"patterns": [
 		{ "include": "#comments" },
+		{ "include": "#multi-lang-code-blocks" },
 		{ "include": "#define-statements" },
 		{ "include": "#use-jump-statements" },
-		{ "include": "#import-lib-statements" },
-		{ "include": "#print-statements" },
-		{ "include": "#python-code-blocks" },
 		{ "include": "#code-block-marker" },
 		{ "include": "#keywords" },
 		{ "include": "#variables" },
@@ -79,23 +77,11 @@
 				}
 			]
 		},
-		"import-lib-statements": {
-			"patterns": [
-				{
-					"match": "\\b(import)\\b\\s+(lib)\\s+(.*)$",
-					"captures": {
-						"1": { "name": "keyword.control.coly" },
-						"2": { "name": "keyword.control.coly" },
-						"3": { "name": "string.quoted.double.python" }
-					}
-				}
-			]
-		},
 		"keywords": {
 			"patterns": [
 				{
 					"name": "keyword.control.coly",
-					"match": "\\b(print|printwithoutanewline|exit|NoReg|OnlyCompile|commitvaroperation|if|ifn|named|with|to|import|lib)\\b"
+					"match": "\\b(print|printwithoutanewline|exit|NoReg|OnlyCompile|commitvaroperation|if|ifn|named|with|to)\\b"
 				},
 				{
 					"name": "constant.language.coly",
@@ -108,22 +94,6 @@
 				{
 					"name": "variable.other.coly",
 					"match": "\\$(\\S+)(?=\\s|\\r|\\n|$)"
-				}
-			]
-		},
-		"print-statements": {
-			"patterns": [
-				{
-					"match": "\\b(print)\\b\\s+(.*)$",
-					"captures": {
-						"1": { "name": "keyword.control.coly" },
-						"2": {
-							"name": "string.quoted.double.python",
-							"patterns": [
-								{ "include": "#variables" }
-							]
-						}
-					}
 				}
 			]
 		},

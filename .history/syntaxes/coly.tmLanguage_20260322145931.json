@@ -1,0 +1,108 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Coly",
+	"scopeName": "source.cly",
+	"patterns": [
+		{ "include": "#comments" },
+		{ "include": "#code-block-marker" },
+		{ "include": "#define-statements" },
+		{ "include": "#embedded-code-blocks" },
+		{ "include": "#keywords" },
+		{ "include": "#variables" },
+		{ "include": "#special-vars" }
+	],
+	"repository": {
+		"comments": {
+		"patterns": [
+			{
+			"name": "comment.line.number-sign.coly",
+			"match": "^(\\|)?#.*$"
+			}
+		]
+		},
+
+		"code-block-marker": {
+		"patterns": [
+			{
+			"name": "punctuation.definition.coly",
+			"match": "^\\|"
+			}
+		]
+		},
+
+		"define-statements": {
+		"patterns": [
+			{
+			"match": "^define\\s+(var|privatevar|code|privatecode)\\s+named\\s+(\\S+)\\s+with\\s+(\\w+)$",
+			"captures": {
+				"1": { "name": "keyword.control.define.coly" },
+				"2": { "name": "keyword.other.define-type.coly" },
+				"3": { "name": "entity.name.define.coly" },
+				"4": { "name": "keyword.control.with.coly" },
+				"5": { "name": "constant.language.target-language.coly" }
+			}
+			},
+			{
+			"match": "^define\\s+(var|privatevar|code|privatecode)\\s+named\\s+(\\S+)\\s*$",
+			"captures": {
+				"1": { "name": "keyword.control.define.coly" },
+				"2": { "name": "keyword.other.define-type.coly" },
+				"3": { "name": "entity.name.define.coly" }
+			}
+			}
+		]
+		},
+
+		"embedded-code-blocks": {
+		"patterns": [
+			{
+			"begin": "^define\\s+code\\s+named\\s+\\S+\\s+with\\s+(Python|JavaScript|TypeScript|Java|C\\+\\+|C#|Go|Rust|HTML|CSS)\\s*$",
+			"beginCaptures": {
+				"1": { "name": "constant.language.target-language.coly" }
+			},
+			"end": "^(?!\\|)",
+			"patterns": [
+				{
+				"match": "^\\|",
+				"name": "punctuation.definition.block.coly"
+				},
+				{
+				"include": "source.$1"
+				}
+			]
+			}
+		]
+		},
+
+		"keywords": {
+		"patterns": [
+			{
+			"name": "keyword.control.coly",
+			"match": "\\b(print|printwithoutanewline|exit|NoReg|OnlyCompile|commitvaroperation|use|jump|if|ifn)\\b"
+			},
+			{
+			"name": "constant.language.coly",
+			"match": "\\b(false|true)\\b"
+			}
+		]
+		},
+
+		"variables": {
+		"patterns": [
+			{
+			"name": "variable.other.coly",
+			"match": "\\$(\\S+)(?=\\s|\\r|\\n|$)"
+			}
+		]
+		},
+
+		"special-vars": {
+		"patterns": [
+			{
+			"name": "support.variable.coly",
+			"match": "\\b(Input|InputLine)\\b"
+			}
+		]
+		}
+	}
+}

@@ -3,7 +3,6 @@
   "displayName": "Coly Extension Pack",
   "description": "Provide the Coly language support for VSCode",
   "version": "0.0.1",
-  "publisher": "Necream",
   "engines": {
     "vscode": "^1.110.0"
   },

@@ -91,6 +91,22 @@
 				}
 			]
 		},
+		"python-code-blocks": {
+			"patterns": [
+				{
+					"begin": "^define\\s+code\\s+named\\s+\\S+\\s+with\\s+Python\\s*$",
+					"end": "^(?!\\|)",
+					"patterns": [
+						{
+							"match": "^\\|\\s*(.*)$",
+							"captures": {
+								"1": { "patterns": [{ "include": "source.python" }, { "include": "#variables" }] }
+							}
+						}
+					]
+				}
+			]
+		},
 		"keywords": {
 			"patterns": [
 				{
@@ -117,12 +133,7 @@
 					"match": "\\b(print)\\b\\s+(.*)$",
 					"captures": {
 						"1": { "name": "keyword.control.coly" },
-						"2": {
-							"name": "string.quoted.double.python",
-							"patterns": [
-								{ "include": "#variables" }
-							]
-						}
+						"2": { "name": "string.quoted.double.python" }
 					}
 				}
 			]

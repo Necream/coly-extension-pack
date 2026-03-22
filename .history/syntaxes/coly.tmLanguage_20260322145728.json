@@ -1,0 +1,84 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Coly",
+	"patterns": [
+		{ "include": "#comments" },
+		{ "include": "#code-block-marker" },
+		{ "include": "#define-statements" },
+		{ "include": "#keywords" },
+		{ "include": "#variables" },
+		{ "include": "#special-vars" }
+	],
+	"repository": {
+		"comments": {
+			"patterns": [{
+				"name": "comment.line.number-sign.coly",
+				"match": "^(\\|)?#.*$"
+			}]
+		},
+
+		"code-block-marker": {
+			"patterns": [{
+				"name": "punctuation.definition.coly",
+				"match": "^\\|"
+			}]
+		},
+
+		"define-statements": {
+			"patterns": [
+				{
+					"match": "^define\\s+(var|privatevar|code|privatecode)\\s+named\\s+(\\S+)\\s+with\\s+(.*)$",
+					"captures": {
+						"1": { "name": "keyword.control.coly" },
+						"2": { "name": "keyword.type.coly" },
+						"3": { "name": "variable.other.coly" },
+						"4": { "name": "keyword.control.coly" },
+						"5": {
+							"patterns": [
+								{ "include": "#keywords" },
+								{ "include": "#variables" },
+								{ "name": "string.quoted.other.coly" }
+							]
+						}
+					}
+				},
+				{
+					"match": "^define\\s+(var|privatevar|code|privatecode)\\s+named\\s+(\\S+)\\s*$",
+					"captures": {
+						"1": { "name": "keyword.control.coly" },
+						"2": { "name": "keyword.type.coly" },
+						"3": { "name": "variable.other.coly" }
+					}
+				}
+			]
+		},
+
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.coly",
+					"match": "\\b(print|printwithoutanewline|exit|NoReg|OnlyCompile|commitvaroperation|use|jump|if|ifn)\\b"
+				},
+				{
+					"name": "constant.language.coly",
+					"match": "\\b(false|true)\\b"
+				}
+			]
+		},
+
+		"variables": {
+			"patterns": [{
+				"name": "variable.other.coly",
+				"match": "\\$(\\S+)(?=\\s|\\r|\\n|$)"
+			}]
+		},
+
+		"special-vars": {
+			"patterns": [{
+				"name": "support.variable.coly",
+				"match": "\\b(Input|InputLine)\\b"
+			}]
+		}
+	},
+	"scopeName": "source.cly"
+}

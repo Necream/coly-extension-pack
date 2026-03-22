@@ -1,0 +1,69 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Coly",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#variables"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#define-statements"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.coly",
+				"match": "\\b(print|printwithoutanewline|exit|with|define|var|code|named|privatevar|privatecode|Input|InputLine|NoReg|OnlyCompile|commitvaroperation|use|jump|if|ifn)\\b"
+			},
+			{
+				"name": "constant.language.coly",
+				"match": "\\b(false|true)\\b"
+			}]
+		},
+		"variables": {
+			"patterns": [{
+				"name": "variable.other.coly",
+				"match": "\\$(\\S+)(?=\\s|\\r|\\n|$)"
+			}]
+		},
+		"comments": {
+			"patterns": [{
+				"name": "comment.line.number-sign.coly",
+				"match": "#.*$"
+			}]
+		},
+		"define-statements": {
+			"patterns": [{
+				// 匹配所有define变体：define [类型] named [变量名] with [值]
+				"match": "^define\\s+(var|privatevar|code|privatecode)\\s+named\\s+(\\S+)\\s+with\\s+(.*)$",
+				"captures": {
+				// 捕获组1：define（关键字）
+				"0": { "name": "keyword.control.coly" },
+				// 捕获组2：var/privatevar/code/privatecode（类型关键字）
+				"1": { "name": "keyword.type.coly" },
+				// 捕获组3：named（固定关键字）
+				"2": { "name": "keyword.control.coly" },
+				// 捕获组4：变量名（如AppName/1/CppLogic）
+				"3": { "name": "entity.name.variable.coly" },
+				// 捕获组5：with（固定关键字）
+				"4": { "name": "keyword.control.coly" },
+				// 捕获组6：值（如Coly_v1.5.3/true/C++）
+				"5": { 
+					"patterns": [
+					{ "include": "#booleans" },    // 嵌套匹配true/false
+					{ "include": "#variables" },   // 嵌套匹配$变量
+					{ "name": "string.quoted.other.coly" } // 其他值标为字符串
+					]
+				}
+				}
+			}]
+			}
+	},
+	"scopeName": "source.cly"
+}

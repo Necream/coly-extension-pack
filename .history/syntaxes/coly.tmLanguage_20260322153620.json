@@ -15,6 +15,14 @@
 		{ "include": "#special-vars" }
 	],
 	"repository": {
+		"pipe-line-override": {
+			"patterns": [
+				{
+					"match": "^\\|.*$",
+					"name": "text.plain.coly"
+				}
+			]
+		},
 		"comments": {
 			"patterns": [
 				{
