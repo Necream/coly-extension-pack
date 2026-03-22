@@ -1,0 +1,25 @@
+{
+  "name": "coly-extension-pack",
+  "displayName": "Coly Extension Pack",
+  "description": "Provide the Coly language support for VSCode",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.110.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "coly",
+      "aliases": ["Coly", "coly"],
+      "extensions": [".cly"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "coly",
+      "scopeName": "source.cly",
+      "path": "./syntaxes/coly.tmLanguage.json"
+    }]
+  }
+}
