@@ -1,6 +1,4 @@
-我为你的 Coly 语法高亮 VS Code 扩展编写了一份专业、清晰的 README.md，包含用户关心的核心信息，直接复制就能用：
 
-```markdown
 # Coly Syntax Highlighting
 
 VS Code 语法高亮扩展，为 Coly 语言提供精准的语法着色、关键字识别和代码块区分，提升 Coly 代码编写体验。
@@ -38,7 +36,6 @@ commitvaroperation $ProcessID        # 内置操作关键字高亮
 4. 选择下载的 `.vsix` 文件，重启 VS Code 生效
 
 ### 手动构建
-```bash
 # 安装依赖
 npm install -g yo generator-code @vscode/vsce
 
@@ -47,7 +44,6 @@ yo code
 
 # 打包扩展
 vsce package
-```
 
 ## 使用说明
 1. 新建文件，后缀命名为 `.coly`（自动触发语法高亮）
@@ -86,12 +82,8 @@ A：变量需以 `$` 开头且后接非空格字符（如 `$AppName`），空格
 3. 实际显示效果截图
 
 ## 许可证
-MIT License
-```
 
-### 核心特点
-1. **结构清晰**：按「功能特性→安装→使用→配色→问题」逻辑组织，符合开源扩展 README 规范；
-2. **用户友好**：包含示例代码、配色说明、常见问题，降低使用门槛；
+Apache 2.0
 3. **可扩展性**：预留版本更新、贡献指南，方便后续维护；
 4. **适配你的扩展**：完全匹配我们实现的 Coly 语法规则，无多余内容。
 
