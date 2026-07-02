@@ -57,20 +57,45 @@
 							]
 						}
 					}
+				},
+				{
+					"match": "\\b(define)\\b\\s+(function)\\s+\\b(named)\\b\\s+(\\S+)(?:\\s+\\b(with)\\b\\s+(.*))?$",
+					"captures": {
+						"1": { "name": "keyword.control.define.coly" },
+						"2": { "name": "keyword.type.coly" },
+						"3": { "name": "keyword.control.coly" },
+						"4": { "name": "variable.other.coly" },
+						"5": { "name": "keyword.control.coly" },
+						"6": {
+							"patterns": [
+								{ "include": "#keywords" },
+								{ "include": "#variables" }
+							]
+						}
+					}
+				},
+				{
+					"match": "\\b(define)\\b\\s+(position)\\s+\\b(named)\\b\\s+(\\S+)$",
+					"captures": {
+						"1": { "name": "keyword.control.define.coly" },
+						"2": { "name": "keyword.type.coly" },
+						"3": { "name": "keyword.control.coly" },
+						"4": { "name": "variable.other.coly" }
+					}
 				}
 			]
 		},
 		"use-jump-statements": {
 			"patterns": [
 				{
-					"match": "\\b(use|jump)\\b\\s+(\\S+)",
+					"match": "\\b(use|usewithoutwait|jump)\\b\\s+(\\S+)",
 					"captures": {
 						"1": { "name": "keyword.control.coly" },
 						"2": { "name": "variable.other.coly" }
 					}
 				},
 				{
-					"match": "\\b(use|jump)\\b\\s+to\\s+(\\S+)",
+					"match": "\\b(use|usewithoutwait|jump)\\b\\s+to\\s+(\\S+)",
 					"captures": {
 						"1": { "name": "keyword.control.coly" },
 						"2": { "name": "keyword.control.coly" },
@@ -95,7 +120,7 @@
 			"patterns": [
 				{
 					"name": "keyword.control.coly",
-					"match": "\\b(print|printwithoutanewline|exit|NoReg|OnlyCompile|commitvaroperation|if|ifn|named|with|to|import|lib)\\b"
+					"match": "\\b(print|printwithoutanewline|exit|NoReg|OnlyCompile|commitvaroperation|if|ifn|named|with|to|import|lib|usewithoutwait)\\b"
 				},
 				{
 					"name": "constant.language.coly",

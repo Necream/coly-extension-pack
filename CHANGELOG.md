@@ -7,3 +7,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Unreleased]
 
 - Initial release
+
+## [0.2.0]
+
+- Add `define function` and `define position` syntax highlighting.
+- Add `usewithoutwait` highlighting with the same color as `use`.
