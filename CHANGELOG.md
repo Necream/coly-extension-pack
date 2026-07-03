@@ -6,7 +6,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
-- Initial release
+## [0.2.1]
+
+- Add `do` keyword highlighting.
 
 ## [0.2.0]
 

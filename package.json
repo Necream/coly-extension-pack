@@ -2,7 +2,7 @@
   "name": "coly-extension-pack",
   "displayName": "Coly Extension Pack",
   "description": "Provide the Coly language support for VSCode",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "publisher": "Necream",
   "engines": {
     "vscode": "^1.110.0"
@@ -22,5 +22,9 @@
       "scopeName": "source.cly",
       "path": "./syntaxes/coly.tmLanguage.json"
     }]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/你的用户名/仓库名.git"
   }
 }
