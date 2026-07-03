@@ -5,7 +5,7 @@ VS Code 语法高亮扩展，为 Coly 语言提供精准的语法着色、关键
 ## 功能特性
 
 ### ✨ 核心高亮支持
-- **关键字高亮**：`define`/`use`/`usewithoutwait`/`jump`/`import`/`lib`/`print`/`if`/`ifn` 等核心关键字
+- **关键字高亮**：`define`/`use`/`usewithoutwait`/`jump`/`do`/`import`/`lib`/`print`/`if`/`ifn` 等核心关键字
 - **变量高亮**：`$AppName`/`$Version`/`$ProcessID` 等以 `$` 开头的自定义变量
 - **特殊变量高亮**：`Input`/`InputLine` 系统内置变量
 - **注释规则**：仅行首 `#` 或 `|#` 后的内容视为注释，且仅 `#` 及后续内容高亮
@@ -27,6 +27,7 @@ define position named start
 import lib json  # import/lib 关键字高亮，json 绿色字符串
 use module1      # use 关键字高亮，module1 变量高亮
 usewithoutwait module2 # usewithoutwait 关键字高亮，颜色与 use 一致
+do $var                  # do 关键字高亮，后续代码正常识别
 jump to label    # jump/to 关键字高亮，label 变量高亮
 commitvaroperation $ProcessID        # 内置操作关键字高亮
 ```

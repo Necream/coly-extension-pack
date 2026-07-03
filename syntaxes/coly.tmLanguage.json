@@ -120,7 +120,7 @@
 			"patterns": [
 				{
 					"name": "keyword.control.coly",
-					"match": "\\b(print|printwithoutanewline|exit|NoReg|OnlyCompile|commitvaroperation|if|ifn|named|with|to|import|lib|usewithoutwait)\\b"
+					"match": "\\b(print|printwithoutanewline|exit|NoReg|OnlyCompile|commitvaroperation|if|ifn|named|with|to|import|lib|usewithoutwait|do)\\b"
 				},
 				{
 					"name": "constant.language.coly",
